@@ -174,6 +174,17 @@ def create_ground_points(x_range: tuple[float, float], y_range: tuple[float, flo
     return np.stack([X.flatten(), Y.flatten(), np.zeros_like(X.flatten())], axis=1)
 
 
+def create_climbing_robot_scene(robot_xml_path: Path, scene_xml_path: Path) -> None:
+    """Create a climbing scene from a robot XML when no robot-specific scene exists."""
+    content = robot_xml_path.read_text()
+    mesh_dir = robot_xml_path.parent / "meshes"
+    relative_mesh_dir = os.path.relpath(mesh_dir, scene_xml_path.parent)
+    content = content.replace('meshdir="meshes/"', f'meshdir="{relative_mesh_dir}/"', 1)
+    content = content.replace('  </asset>', '    <include file="box_assets.xml"/>\n  </asset>', 1)
+    content = content.replace('  <worldbody>', '  <worldbody>\n    <include file="box_body.xml"/>', 1)
+    scene_xml_path.write_text(content)
+
+
 def load_motion_data(
     task_type: TaskType,
     data_format: str,
@@ -333,6 +344,11 @@ def setup_object_data(
         box_asset_xml = object_dir / "box_assets.xml"
         scene_xml_name = Path(constants.ROBOT_URDF_FILE).name.replace(".urdf", f"_w_{constants.OBJECT_NAME}.xml")
         scene_xml_file = object_dir / scene_xml_name
+        if not scene_xml_file.exists():
+            robot_xml_path = Path(constants.ROBOT_URDF_FILE).with_suffix(".xml")
+            if not robot_xml_path.exists():
+                robot_xml_path = Path(__file__).resolve().parents[1] / robot_xml_path
+            create_climbing_robot_scene(robot_xml_path, scene_xml_file)
         # Set SCENE_XML_FILE in constants BEFORE creating retargeter (needed for temp_retargeter)
         constants.SCENE_XML_FILE = str(scene_xml_file)
 
