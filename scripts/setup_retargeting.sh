@@ -66,7 +66,17 @@ if [[ ! -f $SENTINEL_FILE ]]; then
   source $CONDA_ROOT/bin/activate $CONDA_ENV_NAME
 
   # Install holosoma_retargeting
-  pip install -U pip
-  pip install -e $ROOT_DIR/src/holosoma_retargeting
+  #pip install -U pip
+  #pip install -e $ROOT_DIR/src/holosoma_retargeting
+  
+  # 1. 安装/更新 uv
+  pip install uv -i https://pypi.tuna.tsinghua.edu.cn/simple
+
+  # 2. 将 Conda 环境伪装为标准 Virtualenv，防止 uv 抛出环境隔离保护错误
+  export VIRTUAL_ENV=$CONDA_PREFIX
+
+  # 3. 使用 uv 进行多线程并发安装
+  uv pip install -e "$ROOT_DIR/src/holosoma_retargeting" \
+    --index-url https://pypi.tuna.tsinghua.edu.cn/simple
   touch $SENTINEL_FILE
 fi
