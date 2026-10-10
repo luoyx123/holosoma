@@ -18,7 +18,7 @@ class RobotDefaults(TypedDict):
 _ROBOT_DEFAULTS: dict[str, RobotDefaults] = {
     "g1": {"robot_dof": 29, "robot_height": 1.32, "object_name": "ground"},
     "t1": {"robot_dof": 23, "robot_height": 1.2, "object_name": "ground"},
-    "kuavo5": {"robot_dof": 29, "robot_height": 1.5, "object_name": "ground"},
+    "kuavo5": {"robot_dof": 29, "robot_height": 1.73, "object_name": "ground"},
 }
 
 
