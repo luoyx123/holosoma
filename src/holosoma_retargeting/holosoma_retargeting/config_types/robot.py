@@ -19,6 +19,7 @@ _ROBOT_DEFAULTS: dict[str, RobotDefaults] = {
     "g1": {"robot_dof": 29, "robot_height": 1.32, "object_name": "ground"},
     "t1": {"robot_dof": 23, "robot_height": 1.2, "object_name": "ground"},
     "kuavo5": {"robot_dof": 29, "robot_height": 1.73, "object_name": "ground"},
+    "kuavo_s54": {"robot_dof": 29, "robot_height": 1.73, "object_name": "ground"},
 }
 
 
@@ -156,6 +157,11 @@ class RobotConfig:
                 "right_foot_sphere_5_link",
             ]
         if self.robot_type == "kuavo5":
+            return [
+                "leg_l6_link",
+                "leg_r6_link",
+            ]
+        if self.robot_type == "kuavo_s54":
             return [
                 "leg_l6_link",
                 "leg_r6_link",

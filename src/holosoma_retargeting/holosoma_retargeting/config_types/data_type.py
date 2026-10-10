@@ -334,6 +334,8 @@ JOINTS_MAPPINGS = {
         "R_Hip": "leg_r3_link",
         "L_Knee": "leg_l4_link",
         "R_Knee": "leg_r4_link",
+        "L_Ankle": "leg_l6_link",
+        "R_Ankle": "leg_r6_link",
         "L_Shoulder": "zarm_l3_link",
         "R_Shoulder": "zarm_r3_link",
         "L_Elbow": "zarm_l4_link",
@@ -361,6 +363,9 @@ JOINTS_MAPPINGS = {
         "RightFoot": "leg_r6_link",
     },
 }
+
+for _data_format in ("lafan", "smplh", "smplx", "mocap"):
+    JOINTS_MAPPINGS[(_data_format, "kuavo_s54")] = JOINTS_MAPPINGS[(_data_format, "kuavo5")].copy()
 
 # Data format specific constants
 TOE_NAMES_BY_FORMAT = {
