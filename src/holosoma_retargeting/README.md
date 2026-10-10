@@ -6,9 +6,18 @@ This repository provides tools for retargeting human motion data to humanoid rob
 
 ## Single Sequence Motion Retargeting
 
+Run these commands from `src/holosoma_retargeting/holosoma_retargeting`, where `examples/`, `demo_data/`, and `models/` are located:
+
+```bash
+cd src/holosoma_retargeting/holosoma_retargeting
+```
+
 ```bash
 # Robot-only (OMOMO)
 python examples/robot_retarget.py --data_path demo_data/OMOMO_new --task-type robot_only --task-name sub3_largebox_003 --data_format smplh --retargeter.debug --retargeter.visualize
+
+# Kuavo S54 robot-only (OMOMO)
+python examples/robot_retarget.py --data_path demo_data/OMOMO_new --task-type robot_only --task-name sub3_largebox_003 --data_format smplh --robot kuavo_s54 --retargeter.debug --retargeter.visualize
 
 # Object interaction (OMOMO)
 python examples/robot_retarget.py --data_path demo_data/OMOMO_new --task-type object_interaction --task-name sub3_largebox_003 --data_format smplh --retargeter.debug --retargeter.visualize

@@ -735,7 +735,10 @@ def main(cfg: RetargetingConfig) -> None:
     logger.info("Retargeting complete. Results saved to: %s", dest_res_path)
 
     if cfg.retargeter.debug:
-        input("Press Enter to exit ...")
+        try:
+            input("Press Enter to exit ...")
+        except EOFError:
+            pass
 
 
 if __name__ == "__main__":
